@@ -16,7 +16,7 @@ class DigitsDetectionNode(Node):
     def __init__(self):
         super().__init__("Detecting_Digits_MediaPipe")
         self.data = -1
-
+        self.msg = "Not Moving"
         # Intilise action client
         self._action_client = ActionClient(self, Fibo,'TurtleSimAction')
 
@@ -51,6 +51,30 @@ class DigitsDetectionNode(Node):
                 
                 cv2.putText(img,f'{fingers.count(1)}',(40,150),cv2.FONT_HERSHEY_COMPLEX,2,(0,255,0),3)
                 self.data = fingers.count(1)
+                #self.get_logger().info(f'DIGITS RECEVIED: {self.data}')
+                print(f"$$$$$$$$$  {type(self.data)}")
+                
+                if self.data == -1:
+                    self.msg = self.msg
+                elif self.data == 0:
+                    self.msg = "Rotating Clockwise"
+
+                elif self.data == 1:
+                    self.msg = "X axis Positive"
+
+                elif self.data == 2:
+                    self.msg = "Y axis Positive"
+
+                elif self.data == 3:
+                    self.msg = "Y axis Negative"
+
+                elif self.data == 4:
+                    self.msg = "X axis Negative"
+
+                elif self.data == 5:
+                    self.msg = "Rotating Anti-Clockwise"
+                
+            cv2.putText(img,f'{self.msg}',(320,50),cv2.FONT_HERSHEY_PLAIN,2,(0,0,255),2)
             # FPS 
             cTime=time.time()
             fps = 1/(cTime-pTime)
