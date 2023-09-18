@@ -1,0 +1,8 @@
+#goal
+int32 digit_detected
+---
+#result
+string result_string
+---
+#feedback
+string feedback_string
